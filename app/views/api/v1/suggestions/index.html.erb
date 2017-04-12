@@ -1,0 +1,11 @@
+<h1>Snacks List</h1>
+<% @snacks.each do |snack| %>
+  
+  <% if snack["optional"] == false %>
+    <p>Always Purchased: <%= snack["name"] %></p>
+  <% else %>
+    <p>Suggested: <%= snack["name"] %></p>
+  <% end %>
+
+<% end %>
+<%= link_to "New Suggestion", "/api/v1/suggestions/new" %>

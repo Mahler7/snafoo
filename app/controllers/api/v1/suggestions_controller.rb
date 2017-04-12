@@ -24,7 +24,7 @@ class Api::V1::SuggestionsController < ApplicationController
       }
     ).body
 
-    render :show
+    redirect_to '/api/v1/suggestions'
   end
 
   def show

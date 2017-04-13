@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'unirest', '~> 1.1', '>= 1.1.2'
 gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+gem 'vuejs-rails', '~> 2.2', '>= 2.2.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

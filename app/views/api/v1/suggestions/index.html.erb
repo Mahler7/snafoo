@@ -9,6 +9,11 @@
     <% end %>
 
   <% end %>
-  <%= link_to "New Suggestion", "/api/v1/suggestions/new" %>
-  {{ message }}
+  <button class="btn btn-default" @click="toggleSuggestion">New Suggestion</button>
+  <div v-if='toggleNewSuggestion'>
+    <h2>Hey Dude</h2>
+  </div>
+  <div v-for="suggestion in suggestions">
+    {{ suggestion.name }}
+  </div>
 </div>

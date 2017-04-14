@@ -9,11 +9,26 @@
     <% end %>
 
   <% end %>
+  
   <button class="btn btn-default" @click="toggleSuggestion">New Suggestion</button>
-  <div v-if='toggleNewSuggestion'>
-    <h2>Hey Dude</h2>
-  </div>
+
   <div v-for="suggestion in suggestions">
     {{ suggestion.name }}
   </div>
+  
+  <div v-if='toggleNewSuggestion'>
+    <div class="form-group">
+      <label class="form-label">Add Snack</label>
+      <select class="form-control" type="text" v-model="suggestion.name">
+        <option v-for="suggestion in suggestions">
+          {{ suggestion.name }}
+        </option>
+      </select>
+      <button class="btn btn-default" @click="saveSuggestion">Save Suggestion</button>
+    </div>
+    <div class="form-group" v-if="toggleOtherSuggestion">
+      <h1>Test</h1>
+    </div>
+  </div>
+
 </div>

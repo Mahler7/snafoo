@@ -3,25 +3,48 @@ $(document).on('ready', function(){
     el: '#app',
     data: {
       toggleNewSuggestion: false,
+      toggleOtherSuggestion: false,
       suggestion: {
-        name: ''
+        name: '',
+        optional: null,
+        purchaseLocations: '',
+        purchaseCount: '',
+        lastPurchaseDate: ''
       },
       suggestions: []
     },
     mounted: function(){
-      self = this;
-      console.log("self1" + self);
-      api_key = '<%= ENV["API_KEY"] %>'
+      var self = this;
+      var api_key = '<%= ENV["API_KEY"] %>'
       self.$http.get("https://api-snacks.nerderylabs.com/v1/snacks?ApiKey=" + api_key).then(function(response){
           for (x in response.data){
             self.suggestions.push(response.data[x])
           }
+          self.suggestions.push({"name":"Other"});
       })
     },
     methods: {
       toggleSuggestion: function(){
         this.toggleNewSuggestion = !this.toggleNewSuggestion;
-      } 
+      },
+      saveSuggestion: function(){
+        var self = this;
+        var api_key = '<%= ENV["API_KEY"] %>';
+        if (self.suggestion.name === 'Other'){
+          self.toggleOtherSuggestion = !self.toggleOtherSuggestion;
+        }
+        else if (self.suggestion.name !== 'Other'){
+          self.$http.post("https://api-snacks.nerderylabs.com/v1/snacks?ApiKey=" + api_key, self.suggestion, { headers: { "Accept":"application/json" } } ).then(function(response){
+              self.suggestions.push(self.suggestion)
+              console.log("suggestion " + self.suggestions);
+              console.log("Response " + response)
+              console.log("Response status" + response.statusText)
+          }).catch(function(response){
+            self.errors = response.data.errors;
+          });
+          // self.$http.post("/api/v1/suggestions.json")
+        }
+      }
     }
   })
 })

@@ -3,11 +3,6 @@ class Api::V1::SuggestionsController < ApplicationController
   def index
     api_key = ENV["API_KEY"]
     @snacks = Unirest.get("https://api-snacks.nerderylabs.com/v1/snacks?ApiKey=" + api_key).body 
-  end
-
-  def new
-    api_key = ENV["API_KEY"]
-    @snacks = Unirest.get("https://api-snacks.nerderylabs.com/v1/snacks?ApiKey=" + api_key).body 
     @snacks << { "name" => "Other" }
     @suggestion = Suggestion.new
   end

@@ -14,3 +14,15 @@ newSuggestionToggle = function(event){
     buttonText.innerHTML = "New Suggestion";
   }
 }
+otherSelected = function(){
+  var snackSelected = $("snack-select");
+  var selectedValue = snackSelected.options[snackSelected.selectedIndex].value;
+  var displayOtherSnackInfo = $("other-snack-info");
+  if (selectedValue === "Other"){
+    displayOtherSnackInfo.style.display = "block";
+  }
+  else if (selectedValue !== "Other"){
+    displayOtherSnackInfo.style.display = "none";
+  }
+}
+

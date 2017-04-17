@@ -8,7 +8,9 @@
   <% end %>
 
 <% end %>
+
 <a href="#" class="button" id="new-suggestion-button" onclick="newSuggestionToggle(event)">New Suggestion</a>
+
 <div id="new-suggestion-info">
   <h1>New Suggestion</h1>
   <%= form_for @suggestion, url: { action: "create" } do |f| %>
@@ -17,17 +19,18 @@
     </div>
     <br>
     <div id="other-snack-info">
-      <h1>Test</h1>
+      <h1>New Snack</h1>
+      <div>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+      <div>
+        <%= f.label :purchase_location %>
+        <%= f.text_field :purchase_location %>
+      </div>
     </div>
     <div>
       <%= f.submit 'Submit' %>
     </div>
   <% end %>
 </div>
-
-<!--   <div>
-    <%#= f.label 'Snack Suggestion' %>
-    <%#= f.text_field :name %>
-  </div> -->
-
-<%#= link_to "New Suggestion", "/api/v1/suggestions/new" %>

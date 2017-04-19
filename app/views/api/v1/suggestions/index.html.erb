@@ -3,7 +3,7 @@
   
   <% if snack["optional"] == false %>
     <p>Always Purchased: <%= snack["name"] %></p>
-  <% else %>
+  <% elsif snack["optional"] == true %>
     <p>Suggested: <%= snack["name"] %></p>
   <% end %>
 
@@ -12,22 +12,16 @@
 <a href="#" class="button" id="new-suggestion-button" onclick="newSuggestionToggle(event)">New Suggestion</a>
 
 <div id="new-suggestion-info">
-  <h1>New Suggestion</h1>
-  <%= form_for @suggestion, url: { action: "create" } do |f| %>
-    <div>
-      <%= f.select :name, @snacks.collect { |snack| snack["name"] }, {}, { id: "snack-select", onchange: "otherSelected()" } %>
-    </div>
+  <h1>New Snack</h1>
+  <%= form_for @suggestion, url: { action: "create" }, remote: true do |f| %>
     <br>
-    <div id="other-snack-info">
-      <h1>New Snack</h1>
-      <div>
-        <%= f.label :name %>
-        <%= f.text_field :name %>
-      </div>
-      <div>
-        <%= f.label :purchase_location %>
-        <%= f.text_field :purchase_location %>
-      </div>
+    <div>
+      <%= f.label :name %>&nbsp;<span id="name-error">&nbsp;*</span>
+      <%= f.text_field :name, id: "name-field" %>
+    </div>
+    <div>
+      <%= f.label :purchase_location %>&nbsp;<span id="purchase-location-error">&nbsp;*</span>
+      <%= f.text_field :purchase_location, id: "purchase-location-field" %>
     </div>
     <div>
       <%= f.submit 'Submit' %>

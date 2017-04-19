@@ -9,7 +9,7 @@ class Api::V1::SuggestionsController < ApplicationController
 
   def create
     api_key = ENV["API_KEY"]
-    @suggestion = Unirest.post("https://api-snacks.nerderylabs.com/v1/snacks?ApiKey=" + api_key,
+    Unirest.post("https://api-snacks.nerderylabs.com/v1/snacks?ApiKey=" + api_key,
       headers:{ "Accept" => "application/json" }, 
       parameters: { 
         name: params[:name], 
@@ -20,13 +20,31 @@ class Api::V1::SuggestionsController < ApplicationController
       }
     ).body
 
+    @suggestion = Suggestion.new(suggestion_params)
+    
     if @suggestion.save
-      redirect_to '/api/v1/suggestions'
+      respond_to do |format|
+        format.html
+        format.js { render "create.js.erb" }
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.js { render "suggestionErrors.js.erb" }
+      end
     end
   end
 
-  def show
+  private
 
-  end
+    def suggestion_params
+      params.require(:suggestion).permit(
+        :name,
+        :optional,
+        :purchase_location,
+        :purchase_count,
+        :last_purchase_date
+      )
+    end
 
 end

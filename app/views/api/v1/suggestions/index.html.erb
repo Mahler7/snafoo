@@ -3,7 +3,7 @@
   
   <% if snack["optional"] == false %>
     <p>Always Purchased: <%= snack["name"] %></p>
-  <% else %>
+  <% elsif snack["optional"] == true %>
     <p>Suggested: <%= snack["name"] %></p>
   <% end %>
 
@@ -13,10 +13,11 @@
 
 <div id="new-suggestion-info">
   <h1>New Suggestion</h1>
-  <%= form_for @suggestion, url: { action: "create" } do |f| %>
+  <%= form_for @suggestion, url: { action: "create" }, remote: true do |f| %>
     <div>
-      <%= f.select :name, @snacks.collect { |snack| snack["name"] }, {}, { id: "snack-select", onchange: "otherSelected()" } %>
+      <%= f.select :name, options_for_select(@snacks.collect { |snack| snack["name"] if !snack["optional"] }), {include_blank: "Select Snack"}, { id: "snack-select", onchange: "otherSelected()" } %>
     </div>
+    
     <br>
     <div id="other-snack-info">
       <h1>New Snack</h1>
@@ -28,9 +29,10 @@
         <%= f.label :purchase_location %>
         <%= f.text_field :purchase_location %>
       </div>
-    </div>
-    <div>
-      <%= f.submit 'Submit' %>
+      <div>
+        <%= f.hidden_field :optional, value: false %>
+        <%= f.submit 'Submit' %>
+      </div>
     </div>
   <% end %>
 </div>

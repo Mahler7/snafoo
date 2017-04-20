@@ -4,6 +4,7 @@ class Api::V1::SuggestionsController < ApplicationController
     api_key = ENV["API_KEY"]
     @snacks = Unirest.get("https://api-snacks.nerderylabs.com/v1/snacks?ApiKey=" + api_key).body 
     @snacks << { "name" => "Other" }
+    @suggestions = Suggestion.all
     @suggestion = Suggestion.new
   end
 
@@ -20,6 +21,7 @@ class Api::V1::SuggestionsController < ApplicationController
       }
     ).body
 
+    @suggestions = Suggestion.all
     @suggestion = Suggestion.new(suggestion_params)
     
     if @suggestion.save

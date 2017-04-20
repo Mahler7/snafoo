@@ -1,18 +1,26 @@
 <h1>Snacks List</h1>
-<% @snacks.each do |snack| %>
+<%# @snacks.each do |snack| %>
   
-  <% if snack["optional"] == false %>
-    <p>Always Purchased: <%= snack["name"] %></p>
-  <% elsif snack["optional"] == true %>
-    <p>Suggested: <%= snack["name"] %></p>
-  <% end %>
+  <%# if snack["optional"] == false %>
+<!--     <p>Always Purchased: <%#= snack["name"] %></p>
+ -->  <%# elsif snack["optional"] == true %>
+<!--     <p>Suggested: <%#= snack["name"] %></p>
+ -->  <%# end %>
 
+<%# end %>
+<% @suggestions.each do |suggestion| %>
+  <% if suggestion.optional == false %>
+    <p>Always Purchased: <%= suggestion.name %></p>
+  <% elsif suggestion.optional == true %>
+    <p>Suggested Snack: <%= suggestion.name %></p>
+  <% end %>
 <% end %>
 
 <a href="#" class="button" id="new-suggestion-button" onclick="newSuggestionToggle(event)">New Suggestion</a>
 
 <div id="new-suggestion-info">
   <h1>New Snack</h1>
+  <p>Snacks already purchased or suggested will not be saved</p>
   <%= form_for @suggestion, url: { action: "create" }, remote: true do |f| %>
     <br>
     <div>
@@ -27,7 +35,7 @@
       <%= f.text_field :purchase_location, id: "purchase-location-field" %>
     </div>
     <div>
-      <%= f.hidden_field :optional, value: false %>
+      <%= f.hidden_field :optional, value: true %>
       <%= f.submit 'Submit' %>
     </div>
   <% end %>

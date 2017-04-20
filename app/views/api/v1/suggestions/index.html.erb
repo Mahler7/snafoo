@@ -16,6 +16,9 @@
   <%= form_for @suggestion, url: { action: "create" }, remote: true do |f| %>
     <br>
     <div>
+      <p id="snack-submission-success"></p>
+    </div>
+    <div>
       <%= f.label :name %>&nbsp;<span id="name-error">&nbsp;*</span>
       <%= f.text_field :name, id: "name-field" %>
     </div>
@@ -24,6 +27,7 @@
       <%= f.text_field :purchase_location, id: "purchase-location-field" %>
     </div>
     <div>
+      <%= f.hidden_field :optional, value: false %>
       <%= f.submit 'Submit' %>
     </div>
   <% end %>

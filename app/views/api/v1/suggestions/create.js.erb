@@ -1,1 +1,12 @@
-alert('Hello');
+var $ = function(id){
+  return document.getElementById(id);
+}
+
+var snackSaved = $("snack-submission-success");
+snackSaved.innerHTML = "You've successfully suggested a snack."
+
+var nameReset = $('name-field');
+var purchaseLocationReset = $('purchase-location-field');
+
+nameReset.value = '';
+purchaseLocationReset.value = '';

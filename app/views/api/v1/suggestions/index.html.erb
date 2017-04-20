@@ -3,9 +3,32 @@
   
   <% if snack["optional"] == false %>
     <p>Always Purchased: <%= snack["name"] %></p>
-  <% else %>
+  <% elsif snack["optional"] == true %>
     <p>Suggested: <%= snack["name"] %></p>
   <% end %>
 
 <% end %>
-<%= link_to "New Suggestion", "/api/v1/suggestions/new" %>
+
+<a href="#" class="button" id="new-suggestion-button" onclick="newSuggestionToggle(event)">New Suggestion</a>
+
+<div id="new-suggestion-info">
+  <h1>New Snack</h1>
+  <%= form_for @suggestion, url: { action: "create" }, remote: true do |f| %>
+    <br>
+    <div>
+      <p id="snack-submission-success"></p>
+    </div>
+    <div>
+      <%= f.label :name %>&nbsp;<span id="name-error">&nbsp;*</span>
+      <%= f.text_field :name, id: "name-field" %>
+    </div>
+    <div>
+      <%= f.label :purchase_location %>&nbsp;<span id="purchase-location-error">&nbsp;*</span>
+      <%= f.text_field :purchase_location, id: "purchase-location-field" %>
+    </div>
+    <div>
+      <%= f.hidden_field :optional, value: false %>
+      <%= f.submit 'Submit' %>
+    </div>
+  <% end %>
+</div>

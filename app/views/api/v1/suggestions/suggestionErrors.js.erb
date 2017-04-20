@@ -1,0 +1,23 @@
+var $ = function(id){
+  return document.getElementById(id);
+}
+
+var name = $('name-field').value;
+var purchaseLocation = $('purchase-location-field').value;
+
+var nameError = $('name-error');
+var purchaseLocationError = $('purchase-location-error');
+
+if (!name){
+  nameError.innerHTML = "A unique snack name is required.";
+}
+else {
+  nameError.innerHTML = "";
+}
+
+if (!purchaseLocation){
+  purchaseLocationError.innerHTML = "A purchase location is required.";
+}
+else {
+  nameError.innerHTML = "";
+}
